@@ -111,6 +111,33 @@ fi
 # ---------------------------------------------------
 
 
+# ---------------------------------------------------
+# This is jolly-roger test 1
+# ---------------------------------------------------
+WJR3="W_JR_3"
+MS="${WJR3}/${ORIGMS}"
+
+if [[ ! -e "${WJR3}" ]]
+then
+    mkdir "${WJR3}"
+    echo Copying to $MS
+    cp -r "${RAWMS}" "${MS}"
+
+    fix_ms_dir "$MS"
+
+    jolly_tractor \
+        tukey \
+        $COMMON_JR_OPTS \
+        --ignore-nyquist-zone 2 \
+        --compare-to-field 0.7 \
+        "${MS}"
+
+    WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column JOLLY_DATA -name ${WJR3}/with_jolly3 ${MS}"
+    apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
+fi
+# ---------------------------------------------------
+
+
 
 
 
