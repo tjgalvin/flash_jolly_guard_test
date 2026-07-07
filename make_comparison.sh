@@ -6,7 +6,7 @@ module load apptainer
 conda activate flint_main
 
 WSCLEAN_CONTAINER="/scratch3/gal16b/wsclean_scales.sif"
-COMMON_WSCLEAN_OPTS="-multiscale -parallel-gridding 8 -size 6192 6192 -scale 2asec -pol i -nmiter 6 -mgain 0.9 -niter 100000 -auto-mask 5 -auto-threshold 3 -channels-out 8 -join-channels"
+COMMON_WSCLEAN_OPTS="-no-update-model-required -multiscale -parallel-gridding 8 -size 6192 6192 -scale 2asec -pol i -nmiter 6 -mgain 0.9 -niter 100000 -auto-mask 5 -auto-threshold 3 -channels-out 8 -join-channels"
 
 ORIGMS="scienceData.FLASH_759.SB84552.FLASH_759.beam21_averaged_cal.leakage.ms"
 RAWMS="raw/${ORIGMS}"
