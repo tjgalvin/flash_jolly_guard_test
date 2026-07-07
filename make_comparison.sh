@@ -34,7 +34,7 @@ COMMON_JR_OPTS="--reweight --make-plots --number-of-plots 34 --max-workers 12 --
 # This is jolly-roger test 1
 # ---------------------------------------------------
 WJR0="W_JR_0"
-MS="${WJR1}/${ORIGMS}"
+MS="${WJR0}/${ORIGMS}"
 
 mkdir "${WJR0}"
 echo Copying to $MS
