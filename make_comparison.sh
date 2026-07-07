@@ -129,7 +129,7 @@ then
         tukey \
         $COMMON_JR_OPTS \
         --ignore-nyquist-zone 2 \
-        --compare-to-field 0.7 \
+        --compare-to-field 0.9 \
         "${MS}"
 
     WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column JOLLY_DATA -name ${WJR3}/with_jolly3 ${MS}"
