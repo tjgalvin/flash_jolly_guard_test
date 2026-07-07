@@ -18,14 +18,17 @@ RAWMS="raw/${ORIGMS}"
 NOJR="NO_JR"
 MS="${NOJR}/${ORIGMS}"
 
-mkdir "${NOJR}"
-echo "Copying to ${MS}"
-cp -r "${RAWMS}" "${MS}"
+if [[ ! -e "${NOJR}" ]]
+then
+    mkdir "${NOJR}"
+    echo "Copying to ${MS}"
+    cp -r "${RAWMS}" "${MS}"
 
-fix_ms_dir "${MS}"
+    fix_ms_dir "${MS}"
 
-WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column DATA -name ${NOJR}/no_jolly ${MS}"
-apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
+    WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column DATA -name ${NOJR}/no_jolly ${MS}"
+    apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
+fi
 # ---------------------------------------------------
 
 COMMON_JR_OPTS="--reweight --make-plots --number-of-plots 34 --max-workers 12 --chunk-size 1000 --outer-width 30 --data-column DATA --output-column JOLLY_DATA --overwrite  --guard-field --guard-field-fraction 0.1"
@@ -36,20 +39,23 @@ COMMON_JR_OPTS="--reweight --make-plots --number-of-plots 34 --max-workers 12 --
 WJR0="W_JR_0"
 MS="${WJR0}/${ORIGMS}"
 
-mkdir "${WJR0}"
-echo Copying to $MS
-cp -r "${RAWMS}" "${MS}"
+if [[ ! -e "${WJR0}" ]]
+then
+    mkdir "${WJR0}"
+    echo Copying to $MS
+    cp -r "${RAWMS}" "${MS}"
 
-fix_ms_dir "$MS"
+    fix_ms_dir "$MS"
 
-jolly_tractor \
-    tukey \
-    $COMMON_JR_OPTS \
-    --ignore-nyquist-zone 1 \
-    "${MS}"
+    jolly_tractor \
+        tukey \
+        $COMMON_JR_OPTS \
+        --ignore-nyquist-zone 1 \
+        "${MS}"
 
-WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column JOLLY_DATA -name ${WJR0}/with_jolly0 ${MS}"
-apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
+    WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column JOLLY_DATA -name ${WJR0}/with_jolly0 ${MS}"
+    apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
+fi
 # ---------------------------------------------------
 
 
@@ -59,20 +65,23 @@ apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
 WJR1="W_JR_1"
 MS="${WJR1}/${ORIGMS}"
 
-mkdir "${WJR1}"
-echo Copying to $MS
-cp -r "${RAWMS}" "${MS}"
+if [[ ! -e "${WJR1}" ]]
+then
+    mkdir "${WJR1}"
+    echo Copying to $MS
+    cp -r "${RAWMS}" "${MS}"
 
-fix_ms_dir "$MS"
+    fix_ms_dir "$MS"
 
-jolly_tractor \
-    tukey \
-    $COMMON_JR_OPTS \
-    --ignore-nyquist-zone 2 \
-    "${MS}"
+    jolly_tractor \
+        tukey \
+        $COMMON_JR_OPTS \
+        --ignore-nyquist-zone 2 \
+        "${MS}"
 
-WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column JOLLY_DATA -name ${WJR1}/with_jolly1 ${MS}"
-apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
+    WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column JOLLY_DATA -name ${WJR1}/with_jolly1 ${MS}"
+    apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
+fi
 # ---------------------------------------------------
 
 
@@ -82,20 +91,23 @@ apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
 WJR2="W_JR_2"
 MS="${WJR2}/${ORIGMS}"
 
-mkdir "${WJR2}"
-echo Copying to $MS
-cp -r "${RAWMS}" "${MS}"
+if [[ ! -e "${WJR2}" ]]
+then
+    mkdir "${WJR2}"
+    echo Copying to $MS
+    cp -r "${RAWMS}" "${MS}"
 
-fix_ms_dir "$MS"
+    fix_ms_dir "$MS"
 
-jolly_tractor \
-    tukey \
-    $COMMON_JR_OPTS \
-    --ignore-nyquist-zone 3 \
-    "${MS}"
+    jolly_tractor \
+        tukey \
+        $COMMON_JR_OPTS \
+        --ignore-nyquist-zone 3 \
+        "${MS}"
 
-WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column JOLLY_DATA -name ${WJR2}/with_jolly2 ${MS}"
-apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
+    WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column JOLLY_DATA -name ${WJR2}/with_jolly2 ${MS}"
+    apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
+fi
 # ---------------------------------------------------
 
 
