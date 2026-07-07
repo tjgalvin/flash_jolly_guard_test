@@ -48,7 +48,7 @@ jolly_tractor \
     --ignore-nyquist-zone 1 \
     "${MS}"
 
-WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column JOLLY_DATA -name ${WJR1}/with_jolly0 ${MS}"
+WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column JOLLY_DATA -name ${WJR0}/with_jolly0 ${MS}"
 apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
 # ---------------------------------------------------
 
