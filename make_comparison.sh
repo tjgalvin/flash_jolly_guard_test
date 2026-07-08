@@ -6,9 +6,10 @@ module load apptainer
 conda activate flint_main
 
 WSCLEAN_CONTAINER="/scratch3/gal16b/wsclean_scales.sif"
-COMMON_WSCLEAN_OPTS="-no-update-model-required -multiscale -parallel-gridding 8 -size 6192 6192 -scale 2asec -pol i -nmiter 6 -mgain 0.9 -niter 100000 -auto-mask 5 -auto-threshold 3 -channels-out 8 -join-channels"
+COMMON_WSCLEAN_OPTS="-fit-spectral-pol 3 -gridder wgridder -weight briggs 0.5 -no-update-model-required -multiscale -parallel-gridding 8 -size 6192 6192 -scale 2asec -pol i -nmiter 6 -mgain 0.9 -niter 100000 -auto-mask 5 -auto-threshold 3 -channels-out 36 -deconvolution-channels 4 -join-channels"
 
-ORIGMS="scienceData.FLASH_759.SB84552.FLASH_759.beam21_averaged_cal.leakage.ms"
+# ORIGMS="scienceData.FLASH_759.SB84552.FLASH_759.beam21_averaged_cal.leakage.ms"
+ORIGMS="scienceData.EMU_1141-55.SB47138.EMU_1141-55.beam21_averaged_cal.leakage.ms"
 RAWMS="raw/${ORIGMS}"
 
 
@@ -128,7 +129,7 @@ then
     jolly_tractor \
         tukey \
         $COMMON_JR_OPTS \
-        --ignore-nyquist-zone 2 \
+        --ignore-nyquist-zone 3 \
         --compare-to-field 0.9 \
         "${MS}"
 
@@ -138,8 +139,30 @@ fi
 # ---------------------------------------------------
 
 
+# ---------------------------------------------------
+# This is jolly-roger test 1
+# ---------------------------------------------------
+WJR4="W_JR_4"
+MS="${WJR4}/${ORIGMS}"
 
+if [[ ! -e "${WJR4}" ]]
+then
+    mkdir "${WJR4}"
+    echo Copying to $MS
+    cp -r "${RAWMS}" "${MS}"
 
+    fix_ms_dir "$MS"
 
+    jolly_tractor \
+        tukey \
+        $COMMON_JR_OPTS \
+        --ignore-nyquist-zone 3 \
+        --compare-to-field 0.5 \
+        "${MS}"
+
+    WSCLEAN_CMD="wsclean ${COMMON_WSCLEAN_OPTS} -data-column JOLLY_DATA -name ${WJR4}/with_jolly4 ${MS}"
+    apptainer exec $WSCLEAN_CONTAINER $WSCLEAN_CMD
+fi
+# ---------------------------------------------------
 
 
