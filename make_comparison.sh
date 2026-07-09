@@ -206,7 +206,7 @@ fi
 WJR6="W_JR_6"
 MS="${WJR6}/${ORIGMS}"
 
-if [[ ! -e "${WJR5}" ]]
+if [[ ! -e "${WJR6}" ]]
 then
     mkdir "${WJR6}"
     echo Copying to $MS
